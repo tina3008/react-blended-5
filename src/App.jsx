@@ -1,32 +1,33 @@
-import {  Header,Loader } from 'components';
+import { Header, Loader } from 'components';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { useEffect } from 'react';
-import { getUserInfo } from 'service/opencagedataApi.js';
+
+import { fetchBaseCurrency } from 'reduxState/operations';
+import { useDispatch } from 'react-redux';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const Rates = lazy(() => import('./pages/Rates.jsx'));
 export const App = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
-  const options = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-  };
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
 
-  function success(pos) {
-   
-getUserInfo(pos.coords);
-    
-  }
+    function success(pos) {
+      dispatch(fetchBaseCurrency(pos.coords));
+    }
 
-  function error(err) {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
-  }
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
 
-  navigator.geolocation.getCurrentPosition(success, error, options);
-},[])
- 
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }, []);
+
   return (
     <>
       <Header />
