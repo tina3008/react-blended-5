@@ -6,6 +6,7 @@ const slice = createSlice({
   initialState: { baseCurrency: '',  exchangeInfo: null,
     isLoading: false,
     isError: null, },
+
   reducers: {
     setBaseCurrency: (state, action) => {
       state.baseCurrency = action.payload;

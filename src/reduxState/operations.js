@@ -19,7 +19,6 @@ export const fetchBaseCurrency = createAsyncThunk(
     }
   },
 );
-
 export const fetchExchangeCurrency = createAsyncThunk('currency/fetchExchangeCurrency', async (currency, thunkAPI) => {
   try {
     const data = await exchangeCurrency(currency);
