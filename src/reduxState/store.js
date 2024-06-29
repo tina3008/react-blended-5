@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { filterReducer } from './filterSlice';
 
 const persistedCurrencyReducer = persistReducer(
   {
@@ -24,6 +25,7 @@ const persistedCurrencyReducer = persistReducer(
 export const store = configureStore({
   reducer: {
     currency: persistedCurrencyReducer,
+    filter: filterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
